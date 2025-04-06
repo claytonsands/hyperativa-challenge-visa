@@ -1,4 +1,4 @@
-package org.example.api.controllers.v1.dto;
+package org.example.api.controller.v1.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Size;

@@ -1,6 +1,6 @@
-package org.example.api.controllers.v1.mapper;
+package org.example.api.controller.v1.mapper;
 
-import org.example.api.controllers.v1.dto.CardResponse;
+import org.example.api.controller.v1.dto.CardResponse;
 import org.example.api.domain.entity.Card;
 
 public class CardMapper {

@@ -1,6 +1,7 @@
-package org.example.api.controllers.v1.parser;
+package org.example.api.controller.v1.parser;
 
-import org.example.api.controllers.v1.dto.BatchRequest;
+import lombok.extern.slf4j.Slf4j;
+import org.example.api.controller.v1.dto.BatchRequest;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -13,12 +14,14 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @Component
 public class TxtBatchParser {
 
     public BatchRequest parseAndValidate(MultipartFile file) throws IOException {
         List<String> lines = new BufferedReader(new InputStreamReader(file.getInputStream()))
                 .lines()
+                .filter(line -> line != null && !line.trim().isEmpty())
                 .toList();
 
         if (lines.size() < 3) {
@@ -70,12 +73,16 @@ public class TxtBatchParser {
     private static List<BatchRequest.CardInput> getCardInputs(List<String> cardLines) {
         List<BatchRequest.CardInput> cardInputs = new ArrayList<>();
         for (String line : cardLines) {
-            if (line.length() < 26)
-                throw new IllegalArgumentException("Linha de cartão inválida: " + line);
-
             String lineId = line.substring(0, 1);
             int order = Integer.parseInt(line.substring(1, 7).trim());
-            String cardNumber = line.substring(7, 26).trim();
+
+            int lengthLine = Math.min(line.length(), 26);
+            String cardNumber = line.substring(7, lengthLine).trim();
+
+            if (cardNumber.length() != 16){
+                log.error("Numero de cartão inválido: {}", line);
+                continue;
+            }
 
             BatchRequest.CardInput card = new BatchRequest.CardInput();
             card.setLineIdentifier(lineId);

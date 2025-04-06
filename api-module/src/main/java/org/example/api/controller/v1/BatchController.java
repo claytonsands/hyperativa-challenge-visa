@@ -1,14 +1,13 @@
-package org.example.api.controllers.v1;
+package org.example.api.controller.v1;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.media.SchemaProperty;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import org.example.api.controllers.v1.dto.BatchRequest;
-import org.example.api.controllers.v1.parser.TxtBatchParser;
+import org.example.api.controller.exception.InvalidFileFormatException;
+import org.example.api.controller.v1.dto.BatchRequest;
+import org.example.api.controller.v1.dto.BatchResponse;
+import org.example.api.controller.v1.parser.TxtBatchParser;
 import org.example.api.domain.entity.Batch;
 import org.example.api.domain.service.BatchService;
 import org.springframework.http.HttpStatus;
@@ -19,7 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.Objects;
 
-import static org.example.api.controllers.v1.mapper.BatchMapper.map;
+import static org.example.api.controller.v1.mapper.BatchMapper.map;
 
 @Tag(name = "Batch")
 @RestController
@@ -43,11 +42,11 @@ public class BatchController {
             }
     )
     @PostMapping(value = "/upload", consumes = "multipart/form-data")
-    public ResponseEntity<?> uploadFile(
+    public ResponseEntity<BatchResponse> uploadFile(
             @Parameter(description = "TXT file", required = true)
             @RequestPart("file") MultipartFile file) throws IOException {
         if (file.isEmpty() || !Objects.requireNonNull(file.getOriginalFilename()).endsWith(".txt")) {
-            return ResponseEntity.badRequest().body("Invalid file. Only .txt allowed.");
+            throw new InvalidFileFormatException();
         }
 
         BatchRequest request = parser.parseAndValidate(file);

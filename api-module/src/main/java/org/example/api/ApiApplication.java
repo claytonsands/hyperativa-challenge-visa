@@ -7,11 +7,10 @@ import org.springframework.context.annotation.Import;
 import org.springframework.scheduling.annotation.EnableAsync;
 
 
-@Import(SecurityConfig.class)
+@Import({SecurityConfig.class})
 @SpringBootApplication(scanBasePackages = {
         "org.example.auth",
-        "org.example.api",
-        "org.example.shared"
+        "org.example.api"
 })
 @EnableAsync
 public class ApiApplication {

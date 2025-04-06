@@ -1,9 +1,7 @@
 package org.example.api.domain.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -12,6 +10,8 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Card {
 
     @Id
@@ -31,9 +31,9 @@ public class Card {
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
 
-    @Column(name = "line_identifier", nullable = true)
+    @Column(name = "line_identifier")
     private String lineIdentifier;
 
-    @Column(name = "order_in_batch", nullable = false)
+    @Column(name = "order_in_batch")
     private int orderInBatch;
 }

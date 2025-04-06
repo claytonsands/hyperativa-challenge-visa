@@ -1,4 +1,4 @@
-package org.example.api.controllers.v1.dto;
+package org.example.api.controller.v1.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
@@ -11,6 +11,4 @@ public class BatchResponse {
     private String name;
     @JsonProperty("batch_code")
     private String code;
-    @JsonProperty("total_records")
-    private Integer totalRecords;
 }

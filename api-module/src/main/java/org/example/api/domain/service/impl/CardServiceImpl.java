@@ -7,6 +7,8 @@ import org.example.api.domain.service.CardService;
 import org.example.api.domain.utils.CardNumberUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 
 @Service
 @RequiredArgsConstructor
@@ -28,4 +30,10 @@ public class CardServiceImpl implements CardService {
         return cardRepository.save(card);
     }
 
+    @Override
+    public Optional<Long> findCardIdByCardNumber(String cardNumber) throws Exception {
+        byte[] encrypted = cardNumberUtils.encrypt(cardNumber);
+        return cardRepository.findByEncryptedNumber(encrypted)
+                .map(Card::getId);
+    }
 }

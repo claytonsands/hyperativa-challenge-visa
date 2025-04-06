@@ -10,7 +10,6 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>shared-module</module>
         <module>auth-module</module>
         <module>api-module</module>
     </modules>
