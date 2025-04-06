@@ -1,6 +1,5 @@
 package org.example.api.domain.utils;
 
-import org.hibernate.annotations.Comment;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
