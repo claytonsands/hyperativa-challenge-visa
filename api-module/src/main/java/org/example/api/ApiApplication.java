@@ -4,6 +4,7 @@ import org.example.auth.config.SecurityConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Import;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 
 @Import(SecurityConfig.class)
@@ -12,6 +13,7 @@ import org.springframework.context.annotation.Import;
         "org.example.api",
         "org.example.shared"
 })
+@EnableAsync
 public class ApiApplication {
 
     public static void main(String[] args) {
