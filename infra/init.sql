@@ -12,5 +12,5 @@ CREATE TABLE card (
     card_masked VARCHAR(20) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     line_identifier CHAR(1),
-    order_in_batch INTEGER NOT NULL
+    order_in_batch INTEGER
 );

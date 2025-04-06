@@ -1,5 +1,6 @@
 package org.example.api.controllers.v1;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.example.api.controllers.v1.dto.CardRequest;
 import org.example.api.controllers.v1.dto.CardResponse;
 import org.example.api.domain.service.CardService;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import static org.example.api.controllers.v1.mapper.CardMapper.map;
 
 
+@Tag(name = "Card")
 @RestController
 @RequestMapping("/api/v1/cards")
 public class CardController {

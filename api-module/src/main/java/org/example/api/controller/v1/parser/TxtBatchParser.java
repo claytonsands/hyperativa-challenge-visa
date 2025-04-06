@@ -25,8 +25,8 @@ public class TxtBatchParser {
             throw new IllegalArgumentException("Arquivo deve conter ao menos 3 linhas (cabeçalho, dados, rodapé)");
         }
 
-        String header = lines.get(0);
-        String footer = lines.get(lines.size() - 1);
+        String header = lines.getFirst();
+        String footer = lines.getLast();
         List<String> cardLines = lines.subList(1, lines.size() - 1);
 
         String name = header.substring(0, 29).trim();
