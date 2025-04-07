@@ -33,7 +33,7 @@ public class CardController {
 
     @PostMapping
     public ResponseEntity<CardResponse> register(@Valid @RequestBody CardRequest request) throws Exception {
-        return new ResponseEntity<>(map(cardService.register(request.getCardNumber())), HttpStatus.CREATED);
+        return new ResponseEntity<>(map(cardService.register(request.cardNumber())), HttpStatus.CREATED);
     }
 
     @PostMapping("/lookup")
