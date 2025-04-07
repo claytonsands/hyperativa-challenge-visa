@@ -1,0 +1,2 @@
+jwt:
+  secret: minha-chave-secreta-para-jwt-com-mais-de-256-bits
