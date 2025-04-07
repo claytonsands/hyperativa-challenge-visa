@@ -49,7 +49,7 @@ docker-compose up -d
 3. **Execute a aplicação**  
 ```bash
 cd app
-mvn spring-boot:run
+mvn -pl api-module spring-boot:run
 ```
 
 > A API será executada em: `http://localhost:8080`
