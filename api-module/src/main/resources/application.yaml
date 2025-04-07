@@ -10,6 +10,8 @@ spring:
     multipart:
       max-file-size: 128KB
       max-request-size: 128KB
+  jackson:
+    property-naming-strategy: SNAKE_CASE
 
 app:
   encryption:

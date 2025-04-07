@@ -1,6 +1,7 @@
 package org.example.api.controller.v1;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.example.api.controller.v1.dto.CardLookupRequest;
 import org.example.api.controller.v1.dto.CardLookupResponse;
 import org.example.api.controller.v1.dto.CardRequest;
@@ -12,6 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.example.api.controller.v1.mapper.CardMapper.map;
 
@@ -28,14 +32,18 @@ public class CardController {
     }
 
     @PostMapping
-    public ResponseEntity<CardResponse> register(@RequestBody CardRequest request) throws Exception {
+    public ResponseEntity<CardResponse> register(@Valid @RequestBody CardRequest request) throws Exception {
         return new ResponseEntity<>(map(cardService.register(request.getCardNumber())), HttpStatus.CREATED);
     }
 
     @PostMapping("/lookup")
-    public ResponseEntity<CardLookupResponse> lookupCard(@RequestBody CardLookupRequest request) throws Exception {
-        return cardService.findCardIdByCardNumber(request.cardNumber())
-                .map(id -> ResponseEntity.ok(new CardLookupResponse(id)))
+    public ResponseEntity<List<CardLookupResponse>> lookupCard(@Valid @RequestBody CardLookupRequest request) throws Exception {
+        return cardService.findCardIdsByCardNumber(request.cardNumber())
+                .map(ids -> ids.stream()
+                        .map(CardLookupResponse::new)
+                        .collect(Collectors.toList()))
+                .filter(list -> !list.isEmpty())
+                .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 }
